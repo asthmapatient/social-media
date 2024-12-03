@@ -3,6 +3,7 @@
 import { validateRequest } from "@/auth";
 import { createPostSchema } from "../validation";
 import prisma from "../prisma";
+import { revalidatePath } from "next/cache";
 
 export default async function createPost(input: string) {
   const { user } = await validateRequest();
@@ -14,4 +15,6 @@ export default async function createPost(input: string) {
       userId: user.id,
     },
   });
+  return { status: true };
+  // revalidatePath("/"); we can do this for server component but we are gonna implement infinite loading with react query
 }

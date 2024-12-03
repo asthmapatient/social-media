@@ -7,6 +7,7 @@ import createPost from "@/lib/actions/PostActions";
 import UserAvatar from "../ui/UserAvatar";
 import { useSession } from "@/lib/providers/SessionProvider";
 import { Button } from "../ui/button";
+import { toast, useToast } from "@/hooks/use-toast";
 export default function PostEditor() {
   const { user } = useSession();
   const editor = useEditor({
@@ -21,14 +22,19 @@ export default function PostEditor() {
     ],
     immediatelyRender: false,
   });
-
+  const { toast } = useToast();
   const input =
     editor?.getText({
       blockSeparator: "\n",
     }) || "";
 
   async function onSubmit() {
-    await createPost(input);
+    const res = await createPost(input);
+    if (res.status) {
+      toast({
+        title: "created",
+      });
+    }
     editor?.commands.clearContent();
   }
 

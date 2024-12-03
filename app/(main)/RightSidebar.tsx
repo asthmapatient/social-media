@@ -41,7 +41,10 @@ async function WhoToFollow() {
       <div className="text-xl font-bold">Who to Follow</div>
       {(await usersToFollow).map((user) => {
         return (
-          <div className="flex items-center gap-3 mt-6 justify-between">
+          <div
+            key={user.id}
+            className="flex items-center gap-3 mt-6 justify-between"
+          >
             <Link
               href={`/users/${user.username}`}
               className="flex items-center gap-3"
