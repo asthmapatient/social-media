@@ -14,4 +14,9 @@ export const postDataInclude = {
 
 export type PostDataType = Prisma.PostGetPayload<{
   include: typeof postDataInclude;
-}>;  // to get include type in Posts includding users
+}>; // to get include type in Posts includding users
+
+export type PostDataTypeWithCursor = {
+  posts: PostDataType[];
+  nextCursor: string | null;
+};
